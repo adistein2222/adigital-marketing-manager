@@ -127,55 +127,237 @@
       <span style="width:32px; height:1px; background:var(--color-accent);"></span>
       <span style="font-size:12.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent);">{{ t.demo.kicker }}</span>
     </div>
-    <h2 data-reveal="1" style="font-family:var(--font-heading); font-weight:500; font-size:clamp(27px,3.2vw,40px); letter-spacing:-0.01em; line-height:1.15; color:var(--color-text); margin:0 0 14px; max-width:20ch;">{{ t.demo.heading }}</h2>
-    <p data-reveal="1" style="font-size:15.5px; line-height:1.7; color:color-mix(in srgb, var(--color-text) 66%, transparent); max-width:56ch; margin:0 0 40px;">{{ t.demo.subtitle }}</p>
+    <h2 data-reveal="1" style="font-family:var(--font-heading); font-weight:500; font-size:clamp(27px,3.2vw,40px); letter-spacing:-0.01em; line-height:1.15; color:var(--color-text); margin:0 0 14px; max-width:26ch;">{{ t.demo.heading }}</h2>
+    <p data-reveal="1" style="font-size:15.5px; line-height:1.7; color:color-mix(in srgb, var(--color-text) 66%, transparent); max-width:60ch; margin:0 0 36px;">{{ t.demo.subtitle }}</p>
+
+    <div data-reveal="1" style="display:flex; align-items:center; margin-bottom:32px; max-width:660px;">
+      <sc-for list="{{ stepItems }}" as="step" hint-placeholder-count="4">
+        <div style="display:flex; align-items:center; flex:1;">
+          <button type="button" onClick="{{ step.onClick }}" style="{{ step.circleStyle }}" style-focus="outline:2px solid var(--color-accent); outline-offset:2px;">
+            <sc-if value="{{ step.done }}" hint-placeholder-val="{{ false }}">
+              <svg width="13" height="13" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"><polyline points="216,72 104,184 40,120"/></svg>
+            </sc-if>
+            <sc-if value="{{ step.notDone }}" hint-placeholder-val="{{ true }}">{{ step.numberLabel }}</sc-if>
+          </button>
+          <span style="{{ step.labelTextStyle }}">{{ step.label }}</span>
+          <sc-if value="{{ step.showConnector }}" hint-placeholder-val="{{ true }}"><span style="{{ step.connectorStyle }}"></span></sc-if>
+        </div>
+      </sc-for>
+    </div>
 
     <div style="display:flex; flex-wrap:wrap-reverse; gap:28px; align-items:stretch;">
-      <div data-reveal="1" class="card elev-sm" style="flex:1 1 300px; min-width:270px; padding:26px; gap:24px; display:flex; flex-direction:column;">
-        <div>
-          <label style="display:block; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 55%, transparent); margin-bottom:10px;">{{ t.demo.nameLabel }}</label>
-          <input type="text" value="{{ demoName }}" onChange="{{ setDemoName }}" placeholder="{{ t.demo.namePlaceholder }}" style="width:100%; height:46px; border-radius:12px; border:1px solid var(--color-divider); background:transparent; color:var(--color-text); font-family:var(--font-body); font-size:14.5px; padding:0 16px; box-sizing:border-box; outline:none;" style-focus="border-color:var(--color-accent);"/>
-        </div>
-        <div>
-          <label style="display:block; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 55%, transparent); margin-bottom:10px;">{{ t.demo.industryLabel }}</label>
-          <div style="display:flex; flex-wrap:wrap; gap:8px;">
-            <sc-for list="{{ industryOptions }}" as="opt" hint-placeholder-count="5">
-              <button type="button" onClick="{{ opt.select }}" style="{{ opt.pillStyle }}" style-focus="outline:2px solid var(--color-accent); outline-offset:2px;">{{ opt.label }}</button>
-            </sc-for>
+      <div data-reveal="1" class="card elev-sm" style="flex:1 1 300px; min-width:270px; padding:26px; gap:22px; display:flex; flex-direction:column;">
+
+        <sc-if value="{{ isStepDetails }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex; flex-direction:column; gap:22px;">
+            <div>
+              <label style="display:block; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 55%, transparent); margin-bottom:10px;">{{ t.demo.nameLabel }}</label>
+              <input type="text" value="{{ demoName }}" onChange="{{ setDemoName }}" placeholder="{{ t.demo.namePlaceholder }}" style="width:100%; height:46px; border-radius:12px; border:1px solid var(--color-divider); background:transparent; color:var(--color-text); font-family:var(--font-body); font-size:14.5px; padding:0 16px; box-sizing:border-box; outline:none;" style-focus="border-color:var(--color-accent);"/>
+            </div>
+            <div>
+              <label style="display:block; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 55%, transparent); margin-bottom:10px;">{{ t.demo.industryLabel }}</label>
+              <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <sc-for list="{{ industryOptions }}" as="opt" hint-placeholder-count="5">
+                  <button type="button" onClick="{{ opt.select }}" style="{{ opt.pillStyle }}" style-focus="outline:2px solid var(--color-accent); outline-offset:2px;">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
           </div>
-        </div>
-        <div>
-          <label style="display:block; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 55%, transparent); margin-bottom:10px;">{{ t.demo.styleLabel }}</label>
-          <div style="display:flex; gap:12px;">
-            <sc-for list="{{ accentOptions }}" as="opt" hint-placeholder-count="4">
-              <button type="button" onClick="{{ opt.select }}" aria-label="{{ opt.label }}" style="{{ opt.swatchStyle }}" style-hover="transform:scale(1.14);" style-focus="outline:2px solid var(--color-accent); outline-offset:3px;"></button>
-            </sc-for>
+        </sc-if>
+
+        <sc-if value="{{ isStepStyle }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-direction:column; gap:22px;">
+            <div>
+              <label style="display:block; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 55%, transparent); margin-bottom:10px;">{{ t.demo.styleLabel }}</label>
+              <div style="display:flex; gap:12px;">
+                <sc-for list="{{ accentOptions }}" as="opt" hint-placeholder-count="4">
+                  <button type="button" onClick="{{ opt.select }}" aria-label="{{ opt.label }}" style="{{ opt.swatchStyle }}" style-hover="transform:scale(1.14);" style-focus="outline:2px solid var(--color-accent); outline-offset:3px;"></button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 55%, transparent); margin-bottom:10px;">{{ t.demo.layoutLabel }}</label>
+              <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <sc-for list="{{ layoutOptions }}" as="opt" hint-placeholder-count="2">
+                  <button type="button" onClick="{{ opt.select }}" style="{{ opt.pillStyle }}" style-focus="outline:2px solid var(--color-accent); outline-offset:2px;">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
           </div>
+        </sc-if>
+
+        <sc-if value="{{ isStepPages }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <label style="display:block; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 55%, transparent); margin-bottom:10px;">{{ t.demo.pagesLabel }}</label>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+              <span style="border:none; background:color-mix(in srgb, var(--color-text) 12%, transparent); color:color-mix(in srgb, var(--color-text) 60%, transparent); border-radius:999px; padding:8px 16px; font-size:12.5px; font-weight:500; font-family:var(--font-heading); cursor:default;">{{ t.demo.heroChip }}</span>
+              <sc-for list="{{ sectionToggles }}" as="opt" hint-placeholder-count="4">
+                <button type="button" onClick="{{ opt.toggle }}" style="{{ opt.chipStyle }}" style-focus="outline:2px solid var(--color-accent); outline-offset:2px;">{{ opt.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStepPreview }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-direction:column; gap:22px;">
+            <div>
+              <label style="display:block; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 55%, transparent); margin-bottom:10px;">{{ t.demo.stepPreview }}</label>
+              <div style="display:flex; gap:8px;">
+                <sc-for list="{{ viewModeOptions }}" as="opt" hint-placeholder-count="2">
+                  <button type="button" onClick="{{ opt.select }}" style="{{ opt.pillStyle }}" style-focus="outline:2px solid var(--color-accent); outline-offset:2px;">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <a href="#contact" class="btn btn-primary" style="height:46px; padding:0 24px; align-self:flex-start; white-space:nowrap;">{{ t.demo.cta }}</a>
+            <button type="button" onClick="{{ resetDemo }}" class="btn btn-secondary" style="height:40px; padding:0 20px; align-self:flex-start; white-space:nowrap;">{{ t.demo.startOver }}</button>
+          </div>
+        </sc-if>
+
+        <div style="display:flex; gap:10px; margin-top:auto; padding-top:4px;">
+          <sc-if value="{{ showBackBtn }}" hint-placeholder-val="{{ false }}">
+            <button type="button" onClick="{{ goBack }}" class="btn btn-secondary" style="height:42px; padding:0 20px; white-space:nowrap;">{{ t.demo.back }}</button>
+          </sc-if>
+          <sc-if value="{{ showContinueBtn }}" hint-placeholder-val="{{ true }}">
+            <button type="button" onClick="{{ goNext }}" class="btn btn-primary" style="height:42px; padding:0 20px; white-space:nowrap;">{{ t.demo.continueLabel }}</button>
+          </sc-if>
         </div>
-        <a href="#contact" class="btn btn-primary" style="height:46px; padding:0 24px; align-self:flex-start; margin-top:auto; white-space:nowrap;">{{ t.demo.cta }}</a>
       </div>
 
-      <div data-reveal="1" style="flex:1 1 440px; min-width:300px; display:flex; align-items:center; justify-content:center;">
-        <div data-frame-wrap="1" data-natural-w="560" data-natural-h="380" style="width:100%; max-width:560px; overflow:hidden;">
-          <div data-frame-inner="1" style="width:560px; height:380px; transform-origin:top left;">
-            <x-import component-from-global-scope="ChromeWindow" from="./browser-window.jsx" width="{{ 560 }}" height="{{ 380 }}" url="{{ demoUrl }}" hint-size="560px,380px">
-              <div style="width:100%; height:100%; display:flex; flex-direction:column; background:var(--color-bg); font-family:var(--font-body);">
-                <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 22px; border-bottom:1px solid var(--color-divider); flex-shrink:0;">
-                  <span style="font-family:var(--font-heading); font-weight:600; font-size:15px; color:var(--color-text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:45%;">{{ demoBrandName }}</span>
-                  <div style="display:flex; gap:16px; font-size:12px; color:color-mix(in srgb, var(--color-text) 60%, transparent); white-space:nowrap;">
-                    <sc-for list="{{ demoNavItems }}" as="item" hint-placeholder-count="3"><span>{{ item.label }}</span></sc-for>
+      <div data-reveal="1" style="flex:1 1 440px; min-width:300px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;">
+        <sc-if value="{{ showDesktopFrame }}" hint-placeholder-val="{{ true }}">
+          <div data-frame-wrap="1" data-natural-w="580" data-natural-h="430" style="width:100%; max-width:580px; overflow:hidden;">
+            <div data-frame-inner="1" style="width:580px; height:430px; transform-origin:top left;">
+              <x-import component-from-global-scope="ChromeWindow" from="./browser-window.jsx" width="{{ 580 }}" height="{{ 430 }}" url="{{ demoUrl }}" hint-size="580px,430px">
+                <div style="width:100%; height:100%; display:flex; flex-direction:column; background:var(--color-bg); font-family:var(--font-body); overflow:hidden;">
+                  <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 22px; border-bottom:1px solid var(--color-divider); flex-shrink:0;">
+                    <span style="font-family:var(--font-heading); font-weight:600; font-size:15px; color:var(--color-text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:45%;">{{ demoBrandName }}</span>
+                    <div style="display:flex; gap:16px; font-size:12px; color:color-mix(in srgb, var(--color-text) 60%, transparent); white-space:nowrap;">
+                      <sc-for list="{{ demoNavItems }}" as="item" hint-placeholder-count="3"><span>{{ item.label }}</span></sc-for>
+                    </div>
+                  </div>
+                  <div style="flex:1; overflow-y:auto;">
+                    <div style="{{ demoHeroWrapStyle }}">
+                      <div style="position:absolute; inset:0; background:radial-gradient(120% 130% at 15% 0%, {{ demoAccentColor }}, transparent 62%); opacity:0.22;"></div>
+                      <p style="position:relative; font-family:var(--font-heading); font-weight:500; font-size:22px; line-height:1.25; color:var(--color-text); margin:0; max-width:22ch;">{{ demoHeadline }}</p>
+                      <p style="position:relative; font-size:12.5px; color:color-mix(in srgb, var(--color-text) 60%, transparent); margin:0; max-width:34ch;">{{ demoSub }}</p>
+                      <span style="position:relative; height:34px; display:inline-flex; align-items:center; padding:0 18px; border-radius:999px; font-size:12px; font-weight:500; font-family:var(--font-heading); color:#fff; background:{{ demoAccentColor }};">{{ demoCtaLabel }}</span>
+                    </div>
+                    <sc-if value="{{ showServices }}" hint-placeholder-val="{{ false }}">
+                      <div style="padding:24px 32px; border-top:1px solid var(--color-divider);">
+                        <p style="font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent); margin:0;">{{ t.demo.sectionServices }}</p>
+                        <div style="display:flex; flex-direction:column; gap:10px; margin-top:14px;">
+                          <sc-for list="{{ featureItems }}" as="f" hint-placeholder-count="3">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                              <svg width="13" height="13" viewBox="0 0 256 256" fill="none" stroke="{{ demoAccentColor }}" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><polyline points="216,72 104,184 40,120"/></svg>
+                              <span style="font-size:12px; color:var(--color-text);">{{ f.label }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ showGallery }}" hint-placeholder-val="{{ false }}">
+                      <div style="padding:24px 32px; border-top:1px solid var(--color-divider);">
+                        <p style="font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent); margin:0;">{{ t.demo.sectionGallery }}</p>
+                        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:14px;">
+                          <div style="aspect-ratio:1; border-radius:8px; background:linear-gradient(135deg, {{ demoAccentColor }}, transparent); opacity:0.55;"></div>
+                          <div style="aspect-ratio:1; border-radius:8px; background:linear-gradient(135deg, {{ demoAccentColor }}, transparent); opacity:0.3;"></div>
+                          <div style="aspect-ratio:1; border-radius:8px; background:linear-gradient(135deg, {{ demoAccentColor }}, transparent); opacity:0.42;"></div>
+                          <div style="aspect-ratio:1; border-radius:8px; background:linear-gradient(135deg, {{ demoAccentColor }}, transparent); opacity:0.22;"></div>
+                        </div>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ showTestimonials }}" hint-placeholder-val="{{ false }}">
+                      <div style="padding:24px 32px; border-top:1px solid var(--color-divider);">
+                        <p style="font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent); margin:0;">{{ t.demo.sectionTestimonials }}</p>
+                        <div style="margin-top:14px; padding:16px; border-radius:10px; background:var(--color-surface); border:1px solid var(--color-divider);">
+                          <p style="margin:0; font-size:12px; line-height:1.6; color:var(--color-text); font-style:italic;">"{{ testimonialQuote }}"</p>
+                          <p style="margin:8px 0 0; font-size:10.5px; color:color-mix(in srgb, var(--color-text) 58%, transparent);">{{ testimonialName }} · {{ testimonialRole }}</p>
+                        </div>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ showContact }}" hint-placeholder-val="{{ false }}">
+                      <div style="padding:30px 32px; border-top:1px solid var(--color-divider); text-align:center; background:color-mix(in srgb, {{ demoAccentColor }} 10%, transparent);">
+                        <p style="margin:0 0 12px; font-family:var(--font-heading); font-weight:500; font-size:14.5px; color:var(--color-text);">{{ contactHeadline }}</p>
+                        <span style="display:inline-flex; height:32px; align-items:center; padding:0 18px; border-radius:999px; font-size:11.5px; font-weight:500; font-family:var(--font-heading); color:#fff; background:{{ demoAccentColor }};">{{ contactCtaLabel }}</span>
+                      </div>
+                    </sc-if>
                   </div>
                 </div>
-                <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:14px; padding:28px 32px; position:relative; overflow:hidden;">
-                  <div style="position:absolute; inset:0; background:radial-gradient(120% 130% at 15% 0%, {{ demoAccentColor }}, transparent 62%); opacity:0.22;"></div>
-                  <p style="position:relative; font-family:var(--font-heading); font-weight:500; font-size:22px; line-height:1.25; color:var(--color-text); margin:0; max-width:20ch;">{{ demoHeadline }}</p>
-                  <p style="position:relative; font-size:12.5px; color:color-mix(in srgb, var(--color-text) 60%, transparent); margin:0; max-width:32ch;">{{ demoSub }}</p>
-                  <span style="position:relative; align-self:flex-start; height:34px; display:inline-flex; align-items:center; padding:0 18px; border-radius:999px; font-size:12px; font-weight:500; font-family:var(--font-heading); color:#fff; background:{{ demoAccentColor }};">{{ demoCtaLabel }}</span>
-                </div>
-              </div>
-            </x-import>
+              </x-import>
+            </div>
           </div>
-        </div>
+        </sc-if>
+
+        <sc-if value="{{ showMobileFrame }}" hint-placeholder-val="{{ false }}">
+          <div data-frame-wrap="1" data-natural-w="300" data-natural-h="580" style="width:100%; max-width:300px; overflow:hidden;">
+            <div data-frame-inner="1" style="width:300px; height:580px; transform-origin:top left;">
+              <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 300 }}" height="{{ 580 }}" title="{{ demoBrandName }}" hint-size="300px,580px">
+                <div style="width:100%; height:100%; display:flex; flex-direction:column; background:var(--color-bg); font-family:var(--font-body); overflow:hidden;">
+                  <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid var(--color-divider); flex-shrink:0;">
+                    <span style="font-family:var(--font-heading); font-weight:600; font-size:13px; color:var(--color-text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:55%;">{{ demoBrandName }}</span>
+                    <div style="display:flex; gap:10px; font-size:10px; color:color-mix(in srgb, var(--color-text) 60%, transparent); white-space:nowrap;">
+                      <sc-for list="{{ demoNavItems }}" as="item" hint-placeholder-count="3"><span>{{ item.label }}</span></sc-for>
+                    </div>
+                  </div>
+                  <div style="flex:1; overflow-y:auto;">
+                    <div style="{{ demoHeroWrapStyle }}">
+                      <div style="position:absolute; inset:0; background:radial-gradient(120% 130% at 15% 0%, {{ demoAccentColor }}, transparent 62%); opacity:0.22;"></div>
+                      <p style="position:relative; font-family:var(--font-heading); font-weight:500; font-size:18px; line-height:1.25; color:var(--color-text); margin:0;">{{ demoHeadline }}</p>
+                      <p style="position:relative; font-size:11px; color:color-mix(in srgb, var(--color-text) 60%, transparent); margin:0;">{{ demoSub }}</p>
+                      <span style="position:relative; height:30px; display:inline-flex; align-items:center; padding:0 16px; border-radius:999px; font-size:11px; font-weight:500; font-family:var(--font-heading); color:#fff; background:{{ demoAccentColor }};">{{ demoCtaLabel }}</span>
+                    </div>
+                    <sc-if value="{{ showServices }}" hint-placeholder-val="{{ false }}">
+                      <div style="padding:18px 20px; border-top:1px solid var(--color-divider);">
+                        <p style="font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent); margin:0;">{{ t.demo.sectionServices }}</p>
+                        <div style="display:flex; flex-direction:column; gap:9px; margin-top:12px;">
+                          <sc-for list="{{ featureItems }}" as="f" hint-placeholder-count="3">
+                            <div style="display:flex; align-items:center; gap:7px;">
+                              <svg width="11" height="11" viewBox="0 0 256 256" fill="none" stroke="{{ demoAccentColor }}" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><polyline points="216,72 104,184 40,120"/></svg>
+                              <span style="font-size:10.5px; color:var(--color-text);">{{ f.label }}</span>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ showGallery }}" hint-placeholder-val="{{ false }}">
+                      <div style="padding:18px 20px; border-top:1px solid var(--color-divider);">
+                        <p style="font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent); margin:0;">{{ t.demo.sectionGallery }}</p>
+                        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-top:12px;">
+                          <div style="aspect-ratio:1; border-radius:6px; background:linear-gradient(135deg, {{ demoAccentColor }}, transparent); opacity:0.55;"></div>
+                          <div style="aspect-ratio:1; border-radius:6px; background:linear-gradient(135deg, {{ demoAccentColor }}, transparent); opacity:0.3;"></div>
+                          <div style="aspect-ratio:1; border-radius:6px; background:linear-gradient(135deg, {{ demoAccentColor }}, transparent); opacity:0.42;"></div>
+                          <div style="aspect-ratio:1; border-radius:6px; background:linear-gradient(135deg, {{ demoAccentColor }}, transparent); opacity:0.22;"></div>
+                        </div>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ showTestimonials }}" hint-placeholder-val="{{ false }}">
+                      <div style="padding:18px 20px; border-top:1px solid var(--color-divider);">
+                        <p style="font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent); margin:0;">{{ t.demo.sectionTestimonials }}</p>
+                        <div style="margin-top:12px; padding:13px; border-radius:9px; background:var(--color-surface); border:1px solid var(--color-divider);">
+                          <p style="margin:0; font-size:10.5px; line-height:1.55; color:var(--color-text); font-style:italic;">"{{ testimonialQuote }}"</p>
+                          <p style="margin:7px 0 0; font-size:9.5px; color:color-mix(in srgb, var(--color-text) 58%, transparent);">{{ testimonialName }} · {{ testimonialRole }}</p>
+                        </div>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ showContact }}" hint-placeholder-val="{{ false }}">
+                      <div style="padding:22px 20px; border-top:1px solid var(--color-divider); text-align:center; background:color-mix(in srgb, {{ demoAccentColor }} 10%, transparent);">
+                        <p style="margin:0 0 10px; font-family:var(--font-heading); font-weight:500; font-size:12.5px; color:var(--color-text);">{{ contactHeadline }}</p>
+                        <span style="display:inline-flex; height:28px; align-items:center; padding:0 15px; border-radius:999px; font-size:10.5px; font-weight:500; font-family:var(--font-heading); color:#fff; background:{{ demoAccentColor }};">{{ contactCtaLabel }}</span>
+                      </div>
+                    </sc-if>
+                  </div>
+                </div>
+              </x-import>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ showScrollHint }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:11px; color:color-mix(in srgb, var(--color-text) 45%, transparent); margin:0; display:flex; align-items:center; gap:5px;">
+            {{ t.demo.scrollHint }}
+            <svg width="11" height="11" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><polyline points="208,96 128,176 48,96"/></svg>
+          </p>
+        </sc-if>
       </div>
     </div>
   </section>
@@ -1177,10 +1359,16 @@ const TR = {
   en: {
     nav: { about: `About`, work: `Work`, process: `Process`, contact: `Contact`, talk: `Let's Talk` },
     demo: {
-      kicker: `Try It Live`, heading: `See what your site could look like.`, subtitle: `Type a business name, pick an industry and a style — the preview updates instantly.`,
+      kicker: `Try It Live`, heading: `Watch a site come together, step by step.`, subtitle: `Walk through the same steps a new client would — pick a name, a style and the pages you need, and see it build in real time.`,
+      stepDetails: `Details`, stepStyle: `Style`, stepPages: `Pages`, stepPreview: `Preview`,
       nameLabel: `Business Name`, namePlaceholder: `e.g. Lumen Studio`, namePlaceholderShort: `Lumen Studio`,
-      industryLabel: `Industry`, styleLabel: `Style`,
+      industryLabel: `Industry`, styleLabel: `Accent Color`, layoutLabel: `Hero Layout`,
+      layoutLeft: `Left-Aligned`, layoutCenter: `Centered`,
       colorAccent: `Blue`, colorEmerald: `Emerald`, colorTerracotta: `Terracotta`, colorCharcoal: `Charcoal`,
+      pagesLabel: `Pages to include`, heroChip: `Home`,
+      sectionServices: `Why Choose Us`, sectionGallery: `Our Work`, sectionTestimonials: `What Clients Say`, sectionContactChip: `Contact`,
+      back: `Back`, continueLabel: `Continue`, startOver: `Start Over`,
+      viewDesktop: `Desktop`, viewMobile: `Mobile`, scrollHint: `Scroll to see more`,
       cta: `Like it? Let's build yours.`, urlPlaceholder: `yoursite.com`,
     },
     hero: {
@@ -1309,10 +1497,16 @@ const TR = {
   he: {
     nav: { about: `אודות`, work: `עבודות`, process: `תהליך`, contact: `צור קשר`, talk: `בואו נדבר` },
     demo: {
-      kicker: `נסו בעצמכם`, heading: `ככה יכול להיראות האתר שלכם.`, subtitle: `הקלידו שם עסק, בחרו תחום וסגנון — התצוגה מתעדכנת מיד.`,
+      kicker: `נסו בעצמכם`, heading: `צפו באתר נבנה מולכם, שלב אחר שלב.`, subtitle: `עברו על אותם שלבים שעובר לקוח חדש — בחרו שם, סגנון ואת העמודים שצריך, וראו את זה נבנה בזמן אמת.`,
+      stepDetails: `פרטים`, stepStyle: `סגנון`, stepPages: `עמודים`, stepPreview: `תצוגה`,
       nameLabel: `שם העסק`, namePlaceholder: `לדוגמה: סטודיו לונה`, namePlaceholderShort: `סטודיו לונה`,
-      industryLabel: `תחום עיסוק`, styleLabel: `סגנון`,
+      industryLabel: `תחום עיסוק`, styleLabel: `צבע מבטא`, layoutLabel: `פריסת הדף הראשי`,
+      layoutLeft: `יישור לצד`, layoutCenter: `ממורכז`,
       colorAccent: `כחול`, colorEmerald: `ירוק אמרלד`, colorTerracotta: `טרקוטה`, colorCharcoal: `אפור פחם`,
+      pagesLabel: `עמודים לכלול`, heroChip: `דף הבית`,
+      sectionServices: `למה לבחור בנו`, sectionGallery: `העבודות שלנו`, sectionTestimonials: `מה הלקוחות אומרים`, sectionContactChip: `יצירת קשר`,
+      back: `הקודם`, continueLabel: `המשך`, startOver: `להתחיל מחדש`,
+      viewDesktop: `מחשב`, viewMobile: `מובייל`, scrollHint: `גללו לעוד`,
       cta: `אהבתם? בואו נבנה לכם אחד כזה.`, urlPlaceholder: `האתר-שלך.co.il`,
     },
     hero: {
@@ -1449,18 +1643,18 @@ const DEMO_ACCENT_SWATCHES = [
 
 const DEMO_PRESETS = {
   en: {
-    ecommerce: { label: 'E-commerce', nav: ['Shop', 'Collections', 'About'], headline: (n) => `Shop the ${n} collection.`, sub: 'Curated products, a checkout that just works.', cta: 'Shop Now' },
-    wellness: { label: 'Health & Wellness', nav: ['Treatments', 'About', 'Book'], headline: (n) => `Feel your best with ${n}.`, sub: 'Book a session in under a minute.', cta: 'Book a Session' },
-    legal: { label: 'Legal & Consulting', nav: ['Services', 'Team', 'Contact'], headline: (n) => `${n}. Trusted counsel.`, sub: 'Clear guidance for complex decisions.', cta: 'Book a Consultation' },
-    creative: { label: 'Photography & Creative', nav: ['Portfolio', 'Sessions', 'Book'], headline: (n) => `${n} — stories worth keeping.`, sub: 'A portfolio that sells itself.', cta: 'View Portfolio' },
-    home: { label: 'Home Services', nav: ['Services', 'Gallery', 'Quote'], headline: (n) => `${n}, done right.`, sub: 'Fast quotes, honest pricing.', cta: 'Get a Free Quote' },
+    ecommerce: { label: 'E-commerce', nav: ['Shop', 'Collections', 'About'], headline: (n) => `Shop the ${n} collection.`, sub: 'Curated products, a checkout that just works.', cta: 'Shop Now', features: ['Free Shipping', 'Secure Checkout', 'Easy 30-Day Returns'], testimonial: { quote: 'Ordering took two minutes and shipping was next-day.', name: 'Verified Buyer', role: 'Repeat Customer' }, contactHeadline: 'Questions before you order?', contactCta: 'Contact Us' },
+    wellness: { label: 'Health & Wellness', nav: ['Treatments', 'About', 'Book'], headline: (n) => `Feel your best with ${n}.`, sub: 'Book a session in under a minute.', cta: 'Book a Session', features: ['Certified Practitioners', 'Flexible Scheduling', 'Personalized Plans'], testimonial: { quote: 'I finally found a routine that actually works for me.', name: 'Client', role: 'Member since 2024' }, contactHeadline: 'Ready to feel better?', contactCta: 'Book a Session' },
+    legal: { label: 'Legal & Consulting', nav: ['Services', 'Team', 'Contact'], headline: (n) => `${n}. Trusted counsel.`, sub: 'Clear guidance for complex decisions.', cta: 'Book a Consultation', features: ['Free First Consultation', '20+ Years Combined Experience', 'Clear, Honest Guidance'], testimonial: { quote: 'They explained everything in plain language and got results.', name: 'Client', role: 'Business Owner' }, contactHeadline: 'Discuss your case with us.', contactCta: 'Schedule a Call' },
+    creative: { label: 'Photography & Creative', nav: ['Portfolio', 'Sessions', 'Book'], headline: (n) => `${n} — stories worth keeping.`, sub: 'A portfolio that sells itself.', cta: 'View Portfolio', features: ['Full-Day Coverage', '48-Hour Previews', 'Premium Prints'], testimonial: { quote: 'Every photo felt like a piece of art.', name: 'Client', role: 'Wedding Session' }, contactHeadline: "Let's capture your story.", contactCta: 'Check Availability' },
+    home: { label: 'Home Services', nav: ['Services', 'Gallery', 'Quote'], headline: (n) => `${n}, done right.`, sub: 'Fast quotes, honest pricing.', cta: 'Get a Free Quote', features: ['Licensed & Insured', 'Free On-Site Quotes', 'Same-Week Scheduling'], testimonial: { quote: 'Showed up on time and left everything spotless.', name: 'Homeowner', role: 'Verified Review' }, contactHeadline: 'Get a free quote today.', contactCta: 'Request a Quote' },
   },
   he: {
-    ecommerce: { label: 'מסחר אלקטרוני', nav: ['חנות', 'קולקציות', 'אודות'], headline: (n) => `קולקציית ${n} מחכה לך.`, sub: 'מוצרים נבחרים, קופה שעובדת חלק.', cta: 'קניות עכשיו' },
-    wellness: { label: 'בריאות ורווחה', nav: ['טיפולים', 'אודות', 'קביעת תור'], headline: (n) => `להרגיש הכי טוב עם ${n}.`, sub: 'קביעת תור בפחות מדקה.', cta: 'קביעת תור' },
-    legal: { label: 'משפט וייעוץ', nav: ['שירותים', 'הצוות', 'צור קשר'], headline: (n) => `${n}. ייעוץ מהימן.`, sub: 'הכוונה ברורה להחלטות מורכבות.', cta: 'קביעת פגישה' },
-    creative: { label: 'צילום ויצירה', nav: ['תיק עבודות', 'צילומים', 'הזמנה'], headline: (n) => `${n} — סיפורים ששווה לשמר.`, sub: 'תיק עבודות שמוכר בעצמו.', cta: 'לתיק העבודות' },
-    home: { label: 'שירותי בית', nav: ['שירותים', 'גלריה', 'הצעת מחיר'], headline: (n) => `${n}, נכון מהפעם הראשונה.`, sub: 'הצעות מחיר מהירות, מחירים הוגנים.', cta: 'הצעת מחיר חינם' },
+    ecommerce: { label: 'מסחר אלקטרוני', nav: ['חנות', 'קולקציות', 'אודות'], headline: (n) => `קולקציית ${n} מחכה לך.`, sub: 'מוצרים נבחרים, קופה שעובדת חלק.', cta: 'קניות עכשיו', features: ['משלוח חינם', 'קופה מאובטחת', 'החזרות פשוטות עד 30 יום'], testimonial: { quote: 'ההזמנה ארכה שתי דקות והגיעה כבר למחרת.', name: 'לקוחה מאומתת', role: 'לקוחה חוזרת' }, contactHeadline: 'שאלות לפני שמזמינים?', contactCta: 'צרו קשר' },
+    wellness: { label: 'בריאות ורווחה', nav: ['טיפולים', 'אודות', 'קביעת תור'], headline: (n) => `להרגיש הכי טוב עם ${n}.`, sub: 'קביעת תור בפחות מדקה.', cta: 'קביעת תור', features: ['מטפלים מוסמכים', 'גמישות בקביעת תורים', 'תוכניות אישיות'], testimonial: { quote: 'סוף סוף מצאתי שגרה שמתאימה לי.', name: 'לקוחה', role: 'לקוחה משנת 2024' }, contactHeadline: 'מוכנים להרגיש טוב יותר?', contactCta: 'קביעת תור' },
+    legal: { label: 'משפט וייעוץ', nav: ['שירותים', 'הצוות', 'צור קשר'], headline: (n) => `${n}. ייעוץ מהימן.`, sub: 'הכוונה ברורה להחלטות מורכבות.', cta: 'קביעת פגישה', features: ['ייעוץ ראשוני חינם', 'מעל 20 שנות ניסיון משולב', 'הכוונה ברורה וכנה'], testimonial: { quote: 'הסבירו הכל בשפה פשוטה והשיגו תוצאות.', name: 'לקוח', role: 'בעל עסק' }, contactHeadline: 'בואו נדבר על התיק שלכם.', contactCta: 'קביעת שיחה' },
+    creative: { label: 'צילום ויצירה', nav: ['תיק עבודות', 'צילומים', 'הזמנה'], headline: (n) => `${n} — סיפורים ששווה לשמר.`, sub: 'תיק עבודות שמוכר בעצמו.', cta: 'לתיק העבודות', features: ['צילום יום מלא', 'תצוגה מקדימה תוך 48 שעות', 'הדפסות פרימיום'], testimonial: { quote: 'כל תמונה הרגישה כמו יצירת אמנות.', name: 'לקוחה', role: 'צילומי חתונה' }, contactHeadline: 'בואו נתעד את הסיפור שלכם.', contactCta: 'בדיקת זמינות' },
+    home: { label: 'שירותי בית', nav: ['שירותים', 'גלריה', 'הצעת מחיר'], headline: (n) => `${n}, נכון מהפעם הראשונה.`, sub: 'הצעות מחיר מהירות, מחירים הוגנים.', cta: 'הצעת מחיר חינם', features: ['מורשה ומבוטח', 'הצעת מחיר חינם באתר', 'זמינות תוך שבוע'], testimonial: { quote: 'הגיעו בזמן והשאירו הכל נקי.', name: 'בעל/ת הבית', role: 'ביקורת מאומתת' }, contactHeadline: 'קבלו הצעת מחיר חינם היום.', contactCta: 'בקשת הצעת מחיר' },
   },
 };
 
@@ -1480,6 +1674,10 @@ class Component extends DCLogic {
     demoName: '',
     demoIndustry: 'ecommerce',
     demoAccent: 'accent',
+    demoStep: 0,
+    demoLayout: 'left',
+    demoSections: { services: true, gallery: true, testimonials: true, contact: true },
+    demoViewMode: 'desktop',
   };
 
   rootRef = React.createRef();
@@ -1750,6 +1948,130 @@ class Component extends DCLogic {
       };
     });
 
+    const demoStep = this.state.demoStep || 0;
+    const demoLayout = this.state.demoLayout || 'left';
+    const demoSections = this.state.demoSections || { services: true, gallery: true, testimonials: true, contact: true };
+    const demoViewMode = this.state.demoViewMode || 'desktop';
+
+    const demoStepLabels = [t.demo.stepDetails, t.demo.stepStyle, t.demo.stepPages, t.demo.stepPreview];
+    const stepItems = demoStepLabels.map((label, index) => {
+      const isActive = demoStep === index;
+      const isDone = demoStep > index;
+      return {
+        key: 'step' + index,
+        index,
+        label,
+        numberLabel: String(index + 1),
+        done: isDone,
+        notDone: !isDone,
+        showConnector: index < demoStepLabels.length - 1,
+        onClick: () => this.setState({ demoStep: index }),
+        circleStyle: {
+          width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: '12px', fontWeight: 600, fontFamily: 'var(--font-heading)', flexShrink: 0, cursor: 'pointer', transition: 'all .25s ease',
+          background: isActive ? 'var(--color-accent)' : 'transparent',
+          color: isActive ? 'var(--color-bg)' : (isDone ? 'var(--color-accent)' : 'color-mix(in srgb, var(--color-text) 55%, transparent)'),
+          border: isActive ? 'none' : ('1px solid ' + (isDone ? 'var(--color-accent)' : 'var(--color-divider)')),
+        },
+        labelTextStyle: {
+          marginInlineStart: '8px', fontSize: '12.5px', fontFamily: 'var(--font-heading)',
+          fontWeight: isActive ? 600 : 500,
+          color: isActive ? 'var(--color-text)' : 'color-mix(in srgb, var(--color-text) 58%, transparent)',
+          whiteSpace: 'nowrap',
+        },
+        connectorStyle: { flex: 1, height: '1px', margin: '0 12px', background: isDone ? 'var(--color-accent)' : 'var(--color-divider)' },
+      };
+    });
+
+    const layoutOptions = ['left', 'center'].map((key) => {
+      const isActive = demoLayout === key;
+      return {
+        key,
+        label: key === 'left' ? t.demo.layoutLeft : t.demo.layoutCenter,
+        select: () => this.setState({ demoLayout: key }),
+        pillStyle: {
+          border: isActive ? 'none' : '1px solid var(--color-divider)',
+          background: isActive ? 'var(--color-accent)' : 'transparent',
+          color: isActive ? 'var(--color-bg)' : 'color-mix(in srgb, var(--color-text) 70%, transparent)',
+          borderRadius: '999px', padding: '8px 16px', fontSize: '12.5px', fontWeight: 500, fontFamily: 'var(--font-heading)', cursor: 'pointer', transition: 'all .25s ease',
+        },
+      };
+    });
+
+    const sectionDefs = [
+      { key: 'services', label: t.demo.sectionServices },
+      { key: 'gallery', label: t.demo.sectionGallery },
+      { key: 'testimonials', label: t.demo.sectionTestimonials },
+      { key: 'contact', label: t.demo.sectionContactChip },
+    ];
+    const sectionToggles = sectionDefs.map((def) => {
+      const isActive = !!demoSections[def.key];
+      return {
+        key: def.key,
+        label: def.label,
+        toggle: () => this.setState((s) => ({ demoSections: { ...s.demoSections, [def.key]: !s.demoSections[def.key] } })),
+        chipStyle: {
+          border: isActive ? 'none' : '1px solid var(--color-divider)',
+          background: isActive ? 'var(--color-accent)' : 'transparent',
+          color: isActive ? 'var(--color-bg)' : 'color-mix(in srgb, var(--color-text) 70%, transparent)',
+          borderRadius: '999px', padding: '8px 16px', fontSize: '12.5px', fontWeight: 500, fontFamily: 'var(--font-heading)', cursor: 'pointer', transition: 'all .25s ease',
+        },
+      };
+    });
+
+    const showExtras = demoStep >= 2;
+    const showServices = showExtras && !!demoSections.services;
+    const showGallery = showExtras && !!demoSections.gallery;
+    const showTestimonials = showExtras && !!demoSections.testimonials;
+    const showContact = showExtras && !!demoSections.contact;
+    const showScrollHint = showExtras && (showServices || showGallery || showTestimonials || showContact);
+
+    const featureItems = (demoPreset.features || []).map((label) => ({ label }));
+    const testimonialQuote = demoPreset.testimonial ? demoPreset.testimonial.quote : '';
+    const testimonialName = demoPreset.testimonial ? demoPreset.testimonial.name : '';
+    const testimonialRole = demoPreset.testimonial ? demoPreset.testimonial.role : '';
+    const contactHeadline = demoPreset.contactHeadline || '';
+    const contactCtaLabel = demoPreset.contactCta || '';
+
+    const demoHeroWrapStyle = {
+      position: 'relative', display: 'flex', flexDirection: 'column', gap: '12px', overflow: 'hidden',
+      padding: demoLayout === 'center' ? '34px 30px' : '28px 32px',
+      textAlign: demoLayout === 'center' ? 'center' : 'left',
+      alignItems: demoLayout === 'center' ? 'center' : 'flex-start',
+    };
+
+    const isPreviewStep = demoStep === 3;
+    const showMobileFrame = isPreviewStep && demoViewMode === 'mobile';
+    const showDesktopFrame = !showMobileFrame;
+
+    const viewModeOptions = ['desktop', 'mobile'].map((key) => {
+      const isActive = demoViewMode === key;
+      return {
+        key,
+        label: key === 'desktop' ? t.demo.viewDesktop : t.demo.viewMobile,
+        select: () => this.setState({ demoViewMode: key }),
+        pillStyle: {
+          border: isActive ? 'none' : '1px solid var(--color-divider)',
+          background: isActive ? 'var(--color-accent)' : 'transparent',
+          color: isActive ? 'var(--color-bg)' : 'color-mix(in srgb, var(--color-text) 70%, transparent)',
+          borderRadius: '999px', padding: '7px 15px', fontSize: '12px', fontWeight: 500, fontFamily: 'var(--font-heading)', cursor: 'pointer', transition: 'all .25s ease',
+        },
+      };
+    });
+
+    const isStepDetails = demoStep === 0;
+    const isStepStyle = demoStep === 1;
+    const isStepPages = demoStep === 2;
+    const isStepPreview = demoStep === 3;
+    const showBackBtn = demoStep > 0;
+    const showContinueBtn = demoStep < 3;
+    const goBack = () => this.setState((s) => ({ demoStep: Math.max(0, (s.demoStep || 0) - 1) }));
+    const goNext = () => this.setState((s) => ({ demoStep: Math.min(3, (s.demoStep || 0) + 1) }));
+    const resetDemo = () => this.setState({
+      demoStep: 0, demoName: '', demoIndustry: 'ecommerce', demoAccent: 'accent', demoLayout: 'left',
+      demoSections: { services: true, gallery: true, testimonials: true, contact: true }, demoViewMode: 'desktop',
+    });
+
     const hardness = this.state.hardness;
     const hardnessBandKey = hardness <= 3 ? 'soft' : hardness <= 7 ? 'medium' : 'firm';
     const hardnessBandLabel = t.work[hardnessBandKey];
@@ -1848,6 +2170,12 @@ class Component extends DCLogic {
       demoBrandName, demoHeadline, demoSub, demoCtaLabel, demoNavItems, demoAccentColor,
       demoUrl: t.demo.urlPlaceholder,
       industryOptions, accentOptions,
+      stepItems, layoutOptions, sectionToggles, viewModeOptions,
+      showServices, showGallery, showTestimonials, showContact, showScrollHint,
+      featureItems, testimonialQuote, testimonialName, testimonialRole, contactHeadline, contactCtaLabel,
+      demoHeroWrapStyle, showDesktopFrame, showMobileFrame,
+      isStepDetails, isStepStyle, isStepPages, isStepPreview,
+      showBackBtn, showContinueBtn, goBack, goNext, resetDemo,
     };
   }
 }
