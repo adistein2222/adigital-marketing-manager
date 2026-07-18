@@ -11,6 +11,13 @@
   <link rel="stylesheet" href="_ds/nocturne-ef067608-fcd3-4d67-a49f-6cdb7c6fc1b3/styles.css">
   <script src="_ds/nocturne-ef067608-fcd3-4d67-a49f-6cdb7c6fc1b3/_ds_bundle.js"></script>
   <title>Adi Stein — Senior E-commerce &amp; Digital Experience Manager</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Adi Stein — Senior E-commerce &amp; Digital Experience Manager">
+  <meta property="og:description" content="15+ years turning complex digital commerce into simple, high-converting journeys. Magento · SAP · UX · AI.">
+  <meta property="og:image" content="https://adigital-marketing-manager.netlify.app/assets/share-card.png">
+  <meta property="og:url" content="https://adigital-marketing-manager.netlify.app/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="description" content="15+ years turning complex digital commerce into simple, high-converting journeys. Magento · SAP · UX · AI.">
   <style>
     html { scroll-behavior: smooth; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
@@ -114,6 +121,64 @@
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:bounceDown 1.8s ease-in-out infinite;"><path d="M6 9l6 6 6-6"/></svg>
     </a>
   </div>
+
+  <section id="demo" data-screen-label="Live Demo" style="max-width:1280px; margin:0 auto; padding:clamp(48px,7vw,84px) clamp(20px,5vw,64px) clamp(40px,6vw,72px);">
+    <div data-reveal="1" style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+      <span style="width:32px; height:1px; background:var(--color-accent);"></span>
+      <span style="font-size:12.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-accent);">{{ t.demo.kicker }}</span>
+    </div>
+    <h2 data-reveal="1" style="font-family:var(--font-heading); font-weight:500; font-size:clamp(27px,3.2vw,40px); letter-spacing:-0.01em; line-height:1.15; color:var(--color-text); margin:0 0 14px; max-width:20ch;">{{ t.demo.heading }}</h2>
+    <p data-reveal="1" style="font-size:15.5px; line-height:1.7; color:color-mix(in srgb, var(--color-text) 66%, transparent); max-width:56ch; margin:0 0 40px;">{{ t.demo.subtitle }}</p>
+
+    <div style="display:flex; flex-wrap:wrap-reverse; gap:28px; align-items:stretch;">
+      <div data-reveal="1" class="card elev-sm" style="flex:1 1 300px; min-width:270px; padding:26px; gap:24px; display:flex; flex-direction:column;">
+        <div>
+          <label style="display:block; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 55%, transparent); margin-bottom:10px;">{{ t.demo.nameLabel }}</label>
+          <input type="text" value="{{ demoName }}" onChange="{{ setDemoName }}" placeholder="{{ t.demo.namePlaceholder }}" style="width:100%; height:46px; border-radius:12px; border:1px solid var(--color-divider); background:transparent; color:var(--color-text); font-family:var(--font-body); font-size:14.5px; padding:0 16px; box-sizing:border-box; outline:none;" style-focus="border-color:var(--color-accent);"/>
+        </div>
+        <div>
+          <label style="display:block; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 55%, transparent); margin-bottom:10px;">{{ t.demo.industryLabel }}</label>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;">
+            <sc-for list="{{ industryOptions }}" as="opt" hint-placeholder-count="5">
+              <button type="button" onClick="{{ opt.select }}" style="{{ opt.pillStyle }}" style-focus="outline:2px solid var(--color-accent); outline-offset:2px;">{{ opt.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <label style="display:block; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:color-mix(in srgb, var(--color-text) 55%, transparent); margin-bottom:10px;">{{ t.demo.styleLabel }}</label>
+          <div style="display:flex; gap:12px;">
+            <sc-for list="{{ accentOptions }}" as="opt" hint-placeholder-count="4">
+              <button type="button" onClick="{{ opt.select }}" aria-label="{{ opt.label }}" style="{{ opt.swatchStyle }}" style-hover="transform:scale(1.14);" style-focus="outline:2px solid var(--color-accent); outline-offset:3px;"></button>
+            </sc-for>
+          </div>
+        </div>
+        <a href="#contact" class="btn btn-primary" style="height:46px; padding:0 24px; align-self:flex-start; margin-top:auto; white-space:nowrap;">{{ t.demo.cta }}</a>
+      </div>
+
+      <div data-reveal="1" style="flex:1 1 440px; min-width:300px; display:flex; align-items:center; justify-content:center;">
+        <div data-frame-wrap="1" data-natural-w="560" data-natural-h="380" style="width:100%; max-width:560px; overflow:hidden;">
+          <div data-frame-inner="1" style="width:560px; height:380px; transform-origin:top left;">
+            <x-import component-from-global-scope="ChromeWindow" from="./browser-window.jsx" width="{{ 560 }}" height="{{ 380 }}" url="{{ demoUrl }}" hint-size="560px,380px">
+              <div style="width:100%; height:100%; display:flex; flex-direction:column; background:var(--color-bg); font-family:var(--font-body);">
+                <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 22px; border-bottom:1px solid var(--color-divider); flex-shrink:0;">
+                  <span style="font-family:var(--font-heading); font-weight:600; font-size:15px; color:var(--color-text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:45%;">{{ demoBrandName }}</span>
+                  <div style="display:flex; gap:16px; font-size:12px; color:color-mix(in srgb, var(--color-text) 60%, transparent); white-space:nowrap;">
+                    <sc-for list="{{ demoNavItems }}" as="item" hint-placeholder-count="3"><span>{{ item.label }}</span></sc-for>
+                  </div>
+                </div>
+                <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:14px; padding:28px 32px; position:relative; overflow:hidden;">
+                  <div style="position:absolute; inset:0; background:radial-gradient(120% 130% at 15% 0%, {{ demoAccentColor }}, transparent 62%); opacity:0.22;"></div>
+                  <p style="position:relative; font-family:var(--font-heading); font-weight:500; font-size:22px; line-height:1.25; color:var(--color-text); margin:0; max-width:20ch;">{{ demoHeadline }}</p>
+                  <p style="position:relative; font-size:12.5px; color:color-mix(in srgb, var(--color-text) 60%, transparent); margin:0; max-width:32ch;">{{ demoSub }}</p>
+                  <span style="position:relative; align-self:flex-start; height:34px; display:inline-flex; align-items:center; padding:0 18px; border-radius:999px; font-size:12px; font-weight:500; font-family:var(--font-heading); color:#fff; background:{{ demoAccentColor }};">{{ demoCtaLabel }}</span>
+                </div>
+              </div>
+            </x-import>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section id="about" data-screen-label="About" style="max-width:1280px; margin:0 auto; padding:clamp(56px,8vw,96px) clamp(20px,5vw,64px);">
     <div data-reveal="1" style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
@@ -1111,6 +1176,13 @@
 const TR = {
   en: {
     nav: { about: `About`, work: `Work`, process: `Process`, contact: `Contact`, talk: `Let's Talk` },
+    demo: {
+      kicker: `Try It Live`, heading: `See what your site could look like.`, subtitle: `Type a business name, pick an industry and a style — the preview updates instantly.`,
+      nameLabel: `Business Name`, namePlaceholder: `e.g. Lumen Studio`, namePlaceholderShort: `Lumen Studio`,
+      industryLabel: `Industry`, styleLabel: `Style`,
+      colorAccent: `Blue`, colorEmerald: `Emerald`, colorTerracotta: `Terracotta`, colorCharcoal: `Charcoal`,
+      cta: `Like it? Let's build yours.`, urlPlaceholder: `yoursite.com`,
+    },
     hero: {
       line1: `Hi, I'm Adi Stein.`,
       role: `Senior E-commerce & Digital Experience Manager`,
@@ -1236,6 +1308,13 @@ const TR = {
   },
   he: {
     nav: { about: `אודות`, work: `עבודות`, process: `תהליך`, contact: `צור קשר`, talk: `בואו נדבר` },
+    demo: {
+      kicker: `נסו בעצמכם`, heading: `ככה יכול להיראות האתר שלכם.`, subtitle: `הקלידו שם עסק, בחרו תחום וסגנון — התצוגה מתעדכנת מיד.`,
+      nameLabel: `שם העסק`, namePlaceholder: `לדוגמה: סטודיו לונה`, namePlaceholderShort: `סטודיו לונה`,
+      industryLabel: `תחום עיסוק`, styleLabel: `סגנון`,
+      colorAccent: `כחול`, colorEmerald: `ירוק אמרלד`, colorTerracotta: `טרקוטה`, colorCharcoal: `אפור פחם`,
+      cta: `אהבתם? בואו נבנה לכם אחד כזה.`, urlPlaceholder: `האתר-שלך.co.il`,
+    },
     hero: {
       line1: `היי, אני עדי שטיין.`,
       role: `מנהלת מוצר דיגיטלי ומסחר אלקטרוני בכירה`,
@@ -1361,6 +1440,30 @@ const TR = {
   },
 };
 
+const DEMO_ACCENT_SWATCHES = [
+  { key: 'accent', color: 'var(--color-accent)' },
+  { key: 'emerald', color: 'oklch(65% 0.13 165)' },
+  { key: 'terracotta', color: 'oklch(66% 0.13 45)' },
+  { key: 'charcoal', color: 'oklch(45% 0.02 260)' },
+];
+
+const DEMO_PRESETS = {
+  en: {
+    ecommerce: { label: 'E-commerce', nav: ['Shop', 'Collections', 'About'], headline: (n) => `Shop the ${n} collection.`, sub: 'Curated products, a checkout that just works.', cta: 'Shop Now' },
+    wellness: { label: 'Health & Wellness', nav: ['Treatments', 'About', 'Book'], headline: (n) => `Feel your best with ${n}.`, sub: 'Book a session in under a minute.', cta: 'Book a Session' },
+    legal: { label: 'Legal & Consulting', nav: ['Services', 'Team', 'Contact'], headline: (n) => `${n}. Trusted counsel.`, sub: 'Clear guidance for complex decisions.', cta: 'Book a Consultation' },
+    creative: { label: 'Photography & Creative', nav: ['Portfolio', 'Sessions', 'Book'], headline: (n) => `${n} — stories worth keeping.`, sub: 'A portfolio that sells itself.', cta: 'View Portfolio' },
+    home: { label: 'Home Services', nav: ['Services', 'Gallery', 'Quote'], headline: (n) => `${n}, done right.`, sub: 'Fast quotes, honest pricing.', cta: 'Get a Free Quote' },
+  },
+  he: {
+    ecommerce: { label: 'מסחר אלקטרוני', nav: ['חנות', 'קולקציות', 'אודות'], headline: (n) => `קולקציית ${n} מחכה לך.`, sub: 'מוצרים נבחרים, קופה שעובדת חלק.', cta: 'קניות עכשיו' },
+    wellness: { label: 'בריאות ורווחה', nav: ['טיפולים', 'אודות', 'קביעת תור'], headline: (n) => `להרגיש הכי טוב עם ${n}.`, sub: 'קביעת תור בפחות מדקה.', cta: 'קביעת תור' },
+    legal: { label: 'משפט וייעוץ', nav: ['שירותים', 'הצוות', 'צור קשר'], headline: (n) => `${n}. ייעוץ מהימן.`, sub: 'הכוונה ברורה להחלטות מורכבות.', cta: 'קביעת פגישה' },
+    creative: { label: 'צילום ויצירה', nav: ['תיק עבודות', 'צילומים', 'הזמנה'], headline: (n) => `${n} — סיפורים ששווה לשמר.`, sub: 'תיק עבודות שמוכר בעצמו.', cta: 'לתיק העבודות' },
+    home: { label: 'שירותי בית', nav: ['שירותים', 'גלריה', 'הצעת מחיר'], headline: (n) => `${n}, נכון מהפעם הראשונה.`, sub: 'הצעות מחיר מהירות, מחירים הוגנים.', cta: 'הצעת מחיר חינם' },
+  },
+};
+
 class Component extends DCLogic {
   state = {
     lang: 'en',
@@ -1374,6 +1477,9 @@ class Component extends DCLogic {
     copiedKey: null,
     videoFailed: false,
     csVideoFailed: false,
+    demoName: '',
+    demoIndustry: 'ecommerce',
+    demoAccent: 'accent',
   };
 
   rootRef = React.createRef();
@@ -1604,6 +1710,46 @@ class Component extends DCLogic {
     const langBtnEnStyle = { ...pillBase, background: !isHebrew ? 'var(--color-accent)' : 'transparent', color: !isHebrew ? 'var(--color-bg)' : 'color-mix(in srgb, var(--color-text) 70%, transparent)' };
     const langBtnHeStyle = { ...pillBase, background: isHebrew ? 'var(--color-accent)' : 'transparent', color: isHebrew ? 'var(--color-bg)' : 'color-mix(in srgb, var(--color-text) 70%, transparent)' };
 
+    const demoIndustryKey = this.state.demoIndustry || 'ecommerce';
+    const demoAccentKey = this.state.demoAccent || 'accent';
+    const demoRawName = (this.state.demoName || '').trim();
+    const demoBrandName = demoRawName || t.demo.namePlaceholderShort;
+    const demoPreset = DEMO_PRESETS[lang][demoIndustryKey];
+    const demoHeadline = demoPreset.headline(demoBrandName);
+    const demoSub = demoPreset.sub;
+    const demoCtaLabel = demoPreset.cta;
+    const demoNavItems = demoPreset.nav.map((label) => ({ label }));
+    const demoAccentColor = (DEMO_ACCENT_SWATCHES.find((s) => s.key === demoAccentKey) || DEMO_ACCENT_SWATCHES[0]).color;
+    const demoAccentLabels = { accent: t.demo.colorAccent, emerald: t.demo.colorEmerald, terracotta: t.demo.colorTerracotta, charcoal: t.demo.colorCharcoal };
+    const industryOptions = ['ecommerce', 'wellness', 'legal', 'creative', 'home'].map((key) => {
+      const isActive = demoIndustryKey === key;
+      return {
+        key,
+        label: DEMO_PRESETS[lang][key].label,
+        select: () => this.setState({ demoIndustry: key }),
+        pillStyle: {
+          border: isActive ? 'none' : '1px solid var(--color-divider)',
+          background: isActive ? 'var(--color-accent)' : 'transparent',
+          color: isActive ? 'var(--color-bg)' : 'color-mix(in srgb, var(--color-text) 70%, transparent)',
+          borderRadius: '999px', padding: '8px 16px', fontSize: '12.5px', fontWeight: 500, fontFamily: 'var(--font-heading)', cursor: 'pointer', transition: 'all .25s ease',
+        },
+      };
+    });
+    const accentOptions = DEMO_ACCENT_SWATCHES.map((sw) => {
+      const isActive = demoAccentKey === sw.key;
+      return {
+        key: sw.key,
+        label: demoAccentLabels[sw.key],
+        select: () => this.setState({ demoAccent: sw.key }),
+        swatchStyle: {
+          width: '30px', height: '30px', borderRadius: '50%', background: sw.color, cursor: 'pointer',
+          border: isActive ? '2px solid var(--color-bg)' : '2px solid transparent',
+          boxShadow: isActive ? `0 0 0 2px ${sw.color}` : 'none',
+          padding: 0, flexShrink: 0, transition: 'all .2s ease',
+        },
+      };
+    });
+
     const hardness = this.state.hardness;
     const hardnessBandKey = hardness <= 3 ? 'soft' : hardness <= 7 ? 'medium' : 'firm';
     const hardnessBandLabel = t.work[hardnessBandKey];
@@ -1696,6 +1842,12 @@ class Component extends DCLogic {
       copyPhone: () => this.copyText('0505899313', 'phone'),
 
       showResumeCta: this.props.showResumeCta ?? true,
+
+      demoName: this.state.demoName,
+      setDemoName: (e) => this.setState({ demoName: e.target.value.slice(0, 40) }),
+      demoBrandName, demoHeadline, demoSub, demoCtaLabel, demoNavItems, demoAccentColor,
+      demoUrl: t.demo.urlPlaceholder,
+      industryOptions, accentOptions,
     };
   }
 }
